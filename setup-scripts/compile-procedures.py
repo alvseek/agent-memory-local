@@ -6,14 +6,10 @@ files, so an installed slash command never points at a path the agent cannot rea
 - **Components** (``[label](.../components/X.md)``) are INLINED at the reference point — the
   link becomes its label text and the component body is inserted right after, so caller
   params written into the sentence survive.
-- **Templates are NOT inlined.** Every template in this repo is *copied to disk* by the
-  procedure that references it, so what the agent needs is a path, not the text: a plan
-  template becomes a plan file, a doc template becomes a doc. Inlining one hands over the
-  content and takes away the source, which is why ``cp {source} ...`` had nothing to
-  substitute. References are left exactly as authored and resolve at run time.
-- **Runtime refs are left alone**: ``[AGENT-MEMORY-PATH]/...`` (where memory lives),
-  ``[path-to-agent-memory-local]/fleet-scripts/*.sh`` (executables the agent runs),
-  and template paths under ``plan-templates/`` and ``templates/``.
+- **This repo ships no templates.** A template reference would be left as a path for the
+  agent to copy, exactly as in the sibling overlays; here there are none to resolve.
+- **Runtime refs are left alone**: ``[AGENT-MEMORY-PATH]/...`` (where memory lives). The only
+  other placeholder use is the component links above, which are inlined at compile time.
 
 Templates are still *resolved* at compile time: a reference naming a template that does not
 exist is reported, and fails the build under ``--strict``. A dangling path is the one failure
