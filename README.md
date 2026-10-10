@@ -2,7 +2,7 @@
 
 The **localization lane** for the [agent-memory](https://github.com/alvseek/agent-memory-system) framework.
 
-This repo holds the procedures that decide *where* a project's memory lives and that read or write it when a project is **localized** (its memory graduated into the project's own repo): the mover (`localize-context`), the read/write override (`localized-memory-workflow`), and the reader (`load-local-context`), plus the single-homed `## Localized Home Resolution` rule they share.
+This repo holds the procedures that decide *where* a project's memory lives and that read or write it when a project is **localized** (its memory graduated into the project's own repo): the mover (`localize-context`), the read/write override (`localized-memory-workflow`), the reader (`load-local-context`), and the awakening entry (`awaken-local`), plus the single-homed `## Localized Home Resolution` rule they share.
 
 It was extracted from `agent-memory-coding-skill` on **2026-10-09**; that repo became [`agent-memory-project`](https://github.com/alvseek/agent-memory-project). See [MIGRATION.md](MIGRATION.md).
 
@@ -19,7 +19,7 @@ HOME = { MAP_PATH, CONTEXT_DIR, SESSION_DIR, KNOWLEDGE_DIR }
 ## Relationship to the rest of the family
 
 - **Standalone, independent repo** — a *peer* of the memory core ([`agent-memory-system`](https://github.com/alvseek/agent-memory-system) / `control-files`).
-- **Leaf**: nothing calls `agent-memory-local`, so it declares no access; a declaration with no reader would be dead config.
+- **Leaf**: nothing calls `agent-memory-local`, so it declares no access; a declaration with no reader would be dead config. It composes the layer above it in turn: `awaken-local` follows `agent-memory-project`'s `awaken-coder` with the localization step forced.
 - Sibling of [`agent-memory-project`](https://github.com/alvseek/agent-memory-project), [`agent-memory-fleet`](https://github.com/alvseek/agent-memory-fleet), and [`agent-memory-wizards`](https://github.com/alvseek/agent-memory-wizards).
 
 ## Contents (`procedures/`)
@@ -27,6 +27,7 @@ HOME = { MAP_PATH, CONTEXT_DIR, SESSION_DIR, KNOWLEDGE_DIR }
 - `localize-context` — graduate a consenting project's memory into its own repo (the mover).
 - `localized-memory-workflow` — the localized read/write override.
 - `load-local-context` — read the localized home (episodic + project knowledge + map).
+- `awaken-local` — the localized awakening entry: `/awaken-coder` with its detection replaced by a direct `/load-local-context`.
 
 ## Setup
 

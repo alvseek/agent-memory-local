@@ -42,6 +42,11 @@ Apply the [Localized Home Resolution component]([path-to-agent-memory-local]/com
 - **Shared** scope → the in-project `CONTEXT_DIR` (`docs/`) instead of central `shared-memory/[project]/context/`.
 - **Private** scope → the in-project `KNOWLEDGE_DIR` (`.agents/knowledge/`) instead of central `agent-[domain]/knowledge-base/[project]/`. Refresh `.agents/knowledge/index.md` and repoint the central index breadcrumb.
 
+## Orientation map (`/map-orientation` override)
+
+- All modes read and write `MAP_PATH` (the in-project map at `docs/orientation-map.md`); the central stub is never the source.
+- Entry paths in the in-project map are **project-root-relative**.
+
 ## Graduation
 
 Promoting a project to localized (creating `.agents/` + moving memory in) is `/localize-context`'s job — see /localize-context.

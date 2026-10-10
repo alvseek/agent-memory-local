@@ -89,7 +89,7 @@ Graduate a **consenting** project's fleet-authored memory OUT of the central `@a
 ## Step 5: Move + rebase the orientation map
 
 1. **Copy** central map → `<project-root>/docs/orientation-map.md`.
-2. **Frontmatter**: keep `project` / `description` / `created` / `last_full_scan`; add `source_of_truth: project`.
+2. **Frontmatter**: keep `project` / `description` / `created` / `last_full_scan`.
 3. **Rebase paths** (two different bases — don't conflate):
    - **Doc `path` references** stay **project-root-relative** — the agent resolves them from the repo root (cwd), exactly as the central map already did (a central map's `README.md` entry never meant `shared-memory/.../context/README.md`). → unchanged.
    - **`child_map` sub-links** are relative to the **map file's folder**. The map now lives at `docs/`, so rewrite the old central-context form (`../../../[sub]/orientation-map.md`) to `docs/`-relative: `../[sub]/orientation-map.md` (one `..` climbs from `docs/` to the repo root, then descends into the sub-project). This keeps `/map-orientation` Load Mode L2 (which follows `child_map` relative to the parent map's location) working unchanged.
@@ -206,12 +206,13 @@ Apply the [Localized Home Resolution component]([path-to-agent-memory-local]/com
 
 ## Integration With Other Procedures
 
-- **/map-orientation** — consumes Localized Home Resolution in its Prelude (all modes read/write the resolved `MAP_PATH`/`CONTEXT_DIR`). `.agents/` is a hidden folder, so its C2 scan already skips it — the agent lane never pollutes the map.
+- **/map-orientation** — all modes read/write `MAP_PATH`/`CONTEXT_DIR`; when localized these resolve to the in-project map and `docs/`. `.agents/` is a hidden folder, so its C2 scan already skips it — the agent lane never pollutes the map.
 - **/update-project-context / /load-project-context** — shared scope resolves to `docs/`; **private scope resolves to `.agents/knowledge/`** when localized. These are the real project-scoped knowledge writer/reader.
 - **/update-episodic / /load-episodic** — episodic files **and the index** resolve to `SESSION_DIR` when localized; the repo `.agents/session/index.md` is the read/write/archive index-of-record, and central keeps one bounded `## Localized Projects` pointer.
 - **/update-knowledge / /load-knowledge** — general knowledge stays central; project-scoped resolves to `KNOWLEDGE_DIR` (`.agents/knowledge/`) via `/update-project-context`.
 - **/wrap-up** — inherits via `/map-orientation --session-touched` + `/update-episodic` (no direct change).
-- **/awaken-agent** — Phase 2 resolves the localized **shared context-index** (`docs/`), **episodic** (`.agents/session/`), and **private project knowledge** (`.agents/knowledge/`) via Localized Home Resolution; the orientation map is resolved separately by `/map-orientation` (bare) at load.
+- **/awaken-agent (core)** — the core stays central; `/awaken-local` and `/load-local-context` apply Localized Home Resolution to load the localized **shared context-index** (`docs/`), **episodic** (`.agents/session/`), and **private project knowledge** (`.agents/knowledge/`). The orientation map is loaded separately by `/map-orientation` (bare).
+- **/awaken-local** — the localized awakening entry (this repo): it runs `/awaken-coder` with the detection replaced by a direct `/load-local-context`. Use it when the project is already known to be localized.
 
 ## Anti-Patterns
 

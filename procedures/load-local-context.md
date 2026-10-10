@@ -1,29 +1,29 @@
 # Load Local Context
 
-Read a **localized** project's memory home — its repo-side episodic, project knowledge, and orientation map — into the session. This is the reader entry for the localization lane: `agent-memory-project`'s awakening detects a localized project (`.agents/` at cwd) and hands off here.
+Read a **localized** project's memory home into the session — its repo-side structural context, work-product memory, and orientation map. This is the reader entry for the localization lane: `agent-memory-project`'s awakening detects a localized project and hands off here, and `agent-memory-local`'s `/awaken-local` calls it directly.
 
-**Read-only.** This procedure never writes, and it never falls back to the central store.
+**Read-only.** This procedure never writes.
 
 ## Arguments
 
-- `/load-local-context` — Load the current project's localized home (detect from cwd).
+- `/load-local-context` — Load the current project's resolved home (detect from cwd).
 
 ---
 
 ## Procedure
 
-1. **Resolve `HOME`** — apply the [Localized Home Resolution component]([path-to-agent-memory-local]/components/localized-home-resolution.md) for the current project.
-   - **Not localized** → report *"[PROJECT] is not localized — nothing to load locally; the central load stands."* and exit.
-   - **Localized but the bundle is not at cwd** → the reachability guard fires: report *"[PROJECT] is localized but `.agents/` (or `docs/`) isn't here — wrong cwd, or the bundle isn't checked out"* and **STOP**. Never read or write centrally as a fallback.
+1. **Resolve `HOME`** — apply the [Localized Home Resolution component]([path-to-agent-memory-local]/components/localized-home-resolution.md) for the current project. The two lanes resolve independently, so this computes which of them are localized.
+   - **Neither lane localized** → report *"[PROJECT] is not localized — nothing to load locally; the central load stands."* and exit.
+   - **A localized lane's directory is missing** → the reachability guard fires for that lane: report *"[PROJECT] is localized but the expected dir isn't here — wrong cwd, or the bundle isn't checked out"* and **STOP**. Never read or write central for a lane that is localized.
 
-2. **Episodic (`SESSION_DIR`)** — read the repo index `.agents/session/index.md` (authoritative, newest-first). Take its **top** entry and read that theme file from `.agents/session/`. This supersedes whatever central episodic the caller loaded.
+2. **Episodic (`SESSION_DIR`)** — read the resolved index (the repo `.agents/session/index.md` when the work-product lane is localized, else the central `agent-memory-index.md`). Take its top entry for this project and read that theme file from `SESSION_DIR`. This supersedes whatever central episodic the caller loaded.
 
-3. **Project knowledge (`KNOWLEDGE_DIR`)** — read `.agents/knowledge/index.md`; load only the entries relevant to the current task. Never load everything.
+3. **Project knowledge (`KNOWLEDGE_DIR`)** — read the resolved index (`<KNOWLEDGE_DIR>/index.md` when localized, else the central knowledge index for this project); load only the entries relevant to the current task. Never load everything.
 
-4. **Orientation map (`MAP_PATH`)** — read the in-project map at `docs/orientation-map.md` (or resolve it with `/map-orientation` bare) and note its status.
+4. **Orientation map (`MAP_PATH`)** — read the resolved map and note its status.
 
 5. **Report** — one compact block:
-   - **Localized project** + the resolved `HOME`.
+   - **Localized project** + which lanes are localized (structural / work-product) + the resolved `HOME`.
    - **Latest episodic + open items** — the newest sub-episode title, then its **Tech Debts** and **Next Steps** verbatim.
    - **Project knowledge** — which entries were loaded (or that the index is empty).
    - **Orientation map** — path + status.
@@ -31,5 +31,6 @@ Read a **localized** project's memory home — its repo-side episodic, project k
 ## Integration
 
 - **`awaken-coder` (agent-memory-project)** — detects a localized project and hands off here; the project lane is central-only and does not read the repo home itself.
+- **`/awaken-local` (agent-memory-local)** — the awakening entry that calls this directly, without detection.
 - **`/load-project-context`, `/load-episodic`, `/load-knowledge` (agent-memory-project)** — operate on the injected `HOME`; on a localized project those values are the repo-side dirs this procedure reports.
 - **`localized-memory-workflow`** — the write-side counterpart; this procedure is the read side.
