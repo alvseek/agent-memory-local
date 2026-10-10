@@ -18,10 +18,9 @@ The `[domain]` argument scopes which agent is awakened (its identity and reasoni
 
 ## Procedure
 
-1. **Follow `/awaken-coder [domain]`**, with **step 3** replaced. Instead of reading the central context index and testing for `.agents/`, call **`/load-local-context`** directly. It resolves `HOME` and loads the map, the project knowledge, and the episodic entry from whichever lanes are localized.
+1. **Follow `/awaken-coder [domain]`**, with **step 3** replaced. Instead of reading the central context index and testing for `.agents/`, call **`/load-local-context`** directly. It resolves `HOME`, loads the map, project knowledge, and episodic entry from whichever lanes are localized, and loads the write-side override.
    - Everything else in `/awaken-coder` is unchanged: the core awakening (step 1), the coding reasoning load (step 2), the orientation map + fleet pointer (step 4), the task-system check (step 5), and the augmented report (step 6).
    - Read the shared and private **context indexes** from the resolved `CONTEXT_DIR` / `KNOWLEDGE_DIR` that `/load-local-context` reports, not from their central defaults.
-   - For memory **writes** this session, follow `agent-memory-local`'s `localized-memory-workflow`: the episodic, archive, and project-context writes resolve to the local home, never the central store.
    - In the report, replace the "if localized" note with the resolved `HOME` and which lanes are localized.
 
 2. **If the project is not localized**, `/load-local-context` reports it and exits. Surface that rather than reading central silently: *"[PROJECT] is not localized — `/awaken-local` expected a local home."* Then stop, or re-run `/awaken-coder [domain]` if a central awaken was intended.
@@ -30,4 +29,4 @@ The `[domain]` argument scopes which agent is awakened (its identity and reasoni
 
 - **`awaken-coder` (agent-memory-project)** — the composition this procedure follows, with step 3 substituted.
 - **`load-local-context`** — the direct read this procedure uses in place of detection.
-- **`localized-memory-workflow`** — the write-side counterpart the session follows afterwards.
+- **`localized-memory-workflow`** — the write-side override, loaded by `/load-local-context`.
