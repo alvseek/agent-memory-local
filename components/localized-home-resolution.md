@@ -2,7 +2,7 @@
 
 The canonical rule for where a project's memory lives. **This is a component, not a standalone skill** — a procedure that needs the resolved home invokes it by reading and following this file.
 
-*Owned by `agent-memory-local`. Consumed by `localize-context`, `localized-memory-workflow`, and `load-local-context`, and referenced by the `agent-memory-project` procedures that operate on `HOME`. Never restated elsewhere.*
+*Owned by `agent-memory-local`. Consumed by `localize-context` and `load-local-context`, and referenced by `localized-memory-workflow` and the `agent-memory-project` procedures that operate on `HOME`. Never restated elsewhere.*
 
 ---
 
