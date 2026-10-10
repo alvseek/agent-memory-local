@@ -182,3 +182,23 @@ def test_any_sibling_manifest_protects_its_skills(tmp_path: Path) -> None:
 
     sk.install(target, _MANIFEST, _SIBLING_MANIFESTS, root=ROOT, output_dir=out)
     assert fleet_owned.is_dir(), "cleanup deleted a skill a second sibling claims"
+
+
+def test_overlay_path_is_repointed_when_the_repo_moves(tmp_path: Path) -> None:
+    """A relocated clone must replace the stale path, not skip it as 'already registered'."""
+    instructions = tmp_path / "AGENTS.md"
+    instructions.write_text(
+        "# Global instructions\n"
+        "- **[path-to-agent-memory-local]** = `C:/Work/IM/agent-memory-old`"
+        f"  <!-- overlay-path-def {sk._PATH_DEF_UUID} -->\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    moved = tmp_path / "agent-memory-local"
+
+    result = sk.register_path(instructions, moved)
+    body = instructions.read_text(encoding="utf-8")
+    assert "Updated" in result
+    assert moved.as_posix() in body
+    assert "agent-memory-old" not in body
+    assert body.count(sk._PATH_DEF_UUID) == 1
