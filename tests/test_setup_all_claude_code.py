@@ -32,7 +32,7 @@ _PLACEHOLDER = "[path-to-agent-memory-local]"
 
 # overlay commands every healthy tree carries — asserted by presence, not exact count, so a
 # newly-added or renamed procedure doesn't break the suite.
-_KNOWN = {"localize-context", "localized-memory-workflow", "load-local-context"}
+_KNOWN = {"localize-context", "load-local-context", "awaken-local"}
 
 
 def test_installs_the_full_command_set(tmp_path: Path) -> None:

@@ -29,4 +29,4 @@ The `[domain]` argument scopes which agent is awakened (its identity and reasoni
 
 - **`awaken-coder` (agent-memory-project)** — the composition this procedure follows, with step 3 substituted.
 - **`load-local-context`** — the direct read this procedure uses in place of detection.
-- **`localized-memory-workflow`** — the write-side override, loaded by `/load-local-context`.
+- **`localized-memory-workflow`** — the write-side override, inlined into `/load-local-context`.

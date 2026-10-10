@@ -37,7 +37,7 @@ _QUOTED_SCALAR = re.compile(r'^description: "(?:[^"\\]|\\.)*"$')
 
 # Overlay procedures every healthy tree carries — asserted by presence, not exact count, so a
 # newly-added or renamed procedure doesn't break the suite.
-_KNOWN = {"localize-context", "localized-memory-workflow", "load-local-context"}
+_KNOWN = {"localize-context", "load-local-context", "awaken-local"}
 
 
 def _install(tmp_path: Path):
