@@ -1,7 +1,7 @@
 [project]
 name = "agent-memory-local"
 version = "0.1.0"
-description = "agent-memory-local (hermod-local) - the localization lane of the agent-memory framework (localize-context, load-local-context, awaken-local, and the localized-home-resolution + localized-memory-workflow components) and its compile/install tooling, composing on top of the agent-memory core."
+description = "agent-memory-local (hermod-local) - the localization lane of the agent-memory framework (localize-context, load-local-context, awaken-local, local-wrap-up, and the localized-home-resolution + localized-memory-workflow components) and its compile/install tooling, composing on top of the agent-memory core."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]

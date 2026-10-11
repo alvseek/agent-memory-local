@@ -28,6 +28,7 @@ HOME = { MAP_PATH, CONTEXT_DIR, SESSION_DIR, KNOWLEDGE_DIR }
 - `localize-context` — graduate a consenting project's memory into its own repo (the mover).
 - `load-local-context` — read the localized home (episodic + project knowledge + map) and inline the write override.
 - `awaken-local` — the localized awakening entry: `/awaken-coder` with its detection replaced by a direct `/load-local-context`.
+- `local-wrap-up` — the localized wrap-up entry: re-assert the home, then run `/project-wrap-up`.
 
 `components/`
 - `localized-home-resolution` — the per-lane `HOME` resolution rule.

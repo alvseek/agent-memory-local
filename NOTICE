@@ -2,10 +2,10 @@ agent-memory-local
 Copyright 2026 Alviandi Widiasto (alvseek)
 
 This product - the localization lane of the agent-memory framework
-(localize-context, load-local-context, awaken-local, and the localized-home
-resolution + localized-memory-workflow components), together with their compile
-and install tooling - is licensed under the Apache License, Version 2.0. See the
-LICENSE file at the root of this repository, or
+(localize-context, load-local-context, awaken-local, local-wrap-up, and the
+localized-home resolution + localized-memory-workflow components), together
+with their compile and install tooling - is licensed under the Apache License,
+Version 2.0. See the LICENSE file at the root of this repository, or
 http://www.apache.org/licenses/LICENSE-2.0
 
 The coding and repository procedures live in the sibling repo
