@@ -15,7 +15,7 @@ The wrap-up entry for a **localized** project. It re-establishes the localized h
 
 ## Procedure
 
-1. **Resolve `HOME`** — apply the [Localized Home Resolution component]([path-to-agent-memory-local]/components/localized-home-resolution.md) for the current project. If it reports that neither lane is localized, surface that and stop: *"[PROJECT] is not localized — `/local-wrap-up` expected a local home."* Only the resolution matters here, so do **not** read the home's contents.
+1. **Resolve `HOME`** — apply the [Localized Home Resolution component]([path-to-agent-memory-local]/components/localized-home-resolution.md) for the current project. If it reports that neither lane is localized, surface that and stop: *"[PROJECT] is not localized — `/local-wrap-up` expected a local home."*.
 2. **Apply the write override** — the [Localized Memory Workflow component]([path-to-agent-memory-local]/components/localized-memory-workflow.md) governs every write the wrap-up performs below.
 3. **Run the wrap-up** — execute **`/project-wrap-up <arguments>`** unchanged. Every write it performs lands in the resolved home, under the override.
 4. **Report** — fold the re-assertion into the wrap-up's own summary block: name the resolved `HOME` and which lanes are localized, beside the wrap-up's result.
