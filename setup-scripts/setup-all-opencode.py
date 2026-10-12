@@ -48,6 +48,7 @@ CORE_MANIFEST_NAME = ".agent-memory-opencode-manifest"
 PROJECT_MANIFEST_NAME = ".agent-memory-project-opencode-manifest"
 FLEET_MANIFEST_NAME = ".agent-memory-fleet-opencode-manifest"
 WIZARDS_MANIFEST_NAME = ".agent-memory-wizards-opencode-manifest"
+DOC_MANIFEST_NAME = ".agent-memory-doc-opencode-manifest"
 
 
 def _config_base() -> Path:
@@ -105,6 +106,7 @@ def main(argv: list[str] | None = None) -> int:
             PROJECT_MANIFEST_NAME,
             FLEET_MANIFEST_NAME,
             WIZARDS_MANIFEST_NAME,
+            DOC_MANIFEST_NAME,
         ],
         instructions_file=base / "AGENTS.md",
     )
